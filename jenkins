@@ -1,0 +1,26 @@
+pipeline{
+ agent any
+ stages{
+  stage('setup'){
+   steps{
+    echo 'building dependencies'
+    bat '''pip install -m requirements.txt'''
+   }
+  }
+  stage('build'){
+   steps{
+    echo 'building app'
+    bat '''python app.py'''
+   }
+  }
+ }
+ post {
+ sucesss{
+  echo 'build success'
+ }
+ failure
+{
+ echo 'build failure'
+}
+ }
+}
